@@ -15,14 +15,14 @@ pipeline {
             steps {
                 script {
                     docker.image('python:3.11').inside {
-                        sh 'pytest || true'
+                        sh 'pytest || echo "Tests failed or not found."'
                     }
                 }
             }
         }
         stage('Deploy') {
             steps {
-                echo 'Simulated deployment step'
+                echo 'Simulating deployment step...'
             }
         }
     }
