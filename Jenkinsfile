@@ -1,6 +1,9 @@
 pipeline {
-    agent any
-
+    agent {
+        docker {
+            image 'python:3.11'
+        }
+    }
     stages {
         stage('Build') {
             steps {
@@ -10,6 +13,11 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'pytest'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'echo "Deploying app..."'
             }
         }
     }
