@@ -4,12 +4,20 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'pip install -r requirements.txt'
+                script {
+                    docker.image('python:3.11').inside {
+                        sh 'pip install -r requirements.txt'
+                    }
+                }
             }
         }
         stage('Test') {
             steps {
-                sh 'pytest || true'
+                script {
+                    docker.image('python:3.11').inside {
+                        sh 'pytest || true'
+                    }
+                }
             }
         }
         stage('Deploy') {
