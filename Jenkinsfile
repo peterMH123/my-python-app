@@ -9,8 +9,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                bat 'docker run --rm -v %cd%:/app -w /app python:3.11 pip install pytest'
-                bat 'docker run --rm -v %cd%:/app -w /app python:3.11 pytest || exit 0'
+                bat 'docker run --rm -v %cd%:/app -w /app python:3.11 sh -c "pip install pytest && pytest" || exit 0'
             }
         }
         stage('Deploy') {
