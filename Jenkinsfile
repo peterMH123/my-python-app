@@ -1,26 +1,11 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:3.11'
-        }
-    }
+    agent any
     stages {
         stage('Build') {
             steps {
-                sh 'python --version'
-                sh 'pip install -r requirements.txt || true'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'pytest || true'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                sh 'echo "Simulando despliegue..."'
+                bat 'docker pull python:3.11'
+                bat 'docker run --rm python:3.11 python --version'
             }
         }
     }
 }
-
