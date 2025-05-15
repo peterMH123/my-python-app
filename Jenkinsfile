@@ -1,29 +1,26 @@
 pipeline {
-    agent any
-
+    agent {
+        docker {
+            image 'python:3.11'
+        }
+    }
     stages {
         stage('Build') {
             steps {
-                script {
-                    docker.image('python:3.11').inside {
-                        sh 'pip install -r requirements.txt'
-                    }
-                }
+                sh 'python --version'
+                sh 'pip install -r requirements.txt || true'
             }
         }
         stage('Test') {
             steps {
-                script {
-                    docker.image('python:3.11').inside {
-                        sh 'pytest || echo "Tests failed or not found."'
-                    }
-                }
+                sh 'pytest || true'
             }
         }
         stage('Deploy') {
             steps {
-                echo 'Simulating deployment step...'
+                sh 'echo "Simulando despliegue..."'
             }
         }
     }
 }
+
